@@ -1,6 +1,6 @@
 from flask_app import app
 from flask_app.models import user, recipe, diet, cuisine, meal_type, schedule
-from datetime import date
+from datetime import date, datetime, timedelta
 from flask import render_template, redirect, request, session, flash
 
 
@@ -57,11 +57,15 @@ def view_recipe(id):
 
 
 @app.route('/dashboard/schedule')
-def edit_schedule():
+def view_schedule():
     if not 'user_id' in session:
         flash('Please log in to view this page')
         return redirect('/')
-    user_schedule = schedule.Schedule.get_user_schedule({'user_id': session['user_id']})
+    today = date.today().weekday()
+    weekstart = date.today() - timedelta(days=today)
+    print(weekstart)
+    user_schedule = schedule.Schedule.get_user_schedule({'user_id': session['user_id']
+    ,'start_date': weekstart})
     if not user_schedule or len(user_schedule) == 0:
         return redirect('/dashboard/add_schedule')
     
@@ -73,17 +77,20 @@ def add_new_schedule():
     if not 'user_id' in session:
         flash('Please log in to view this page')
         return redirect('/')
-
-    for day in range(7):
+    today = date.today().weekday()
+    weekstart = date.today() - timedelta(days=today)
+    day_interval = timedelta(days=1)
+    for day in range(14):
         data = {
             'user_id': session['user_id']
-            ,'date': request.form['date']
+            ,'weekday': (weekstart + day_interval).weekday() 
+            ,'date': weekstart + day_interval 
         }
         schedule.Schedule.add_schedule(data)
 
     return redirect('/dashboard/schedule')
 
 @app.route('/dashboard/edit_schedule', methods=['POST'])
-def edit_schedule1():
+def edit_schedule():
     schedule.Schedule.edit_schedule()
     return redirect('/dashboard/schedule')

@@ -10,11 +10,10 @@ class Schedule:
         self.weekday = self.getweekday(data['weekday'])
         self.date = data['date']
         self.meal_type_id = data['meal_type_id']
-        self.meal_type = data['m.name']
         self.prep_time = data['pt.description']
-        self.recipes = None
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        self.recipes = None
 
         
     def getweekday(weekday_num):
@@ -33,7 +32,7 @@ class Schedule:
 
     @classmethod
     def get_scheduled_recipes(cls, data):
-        query = 'SELECT * FROM schedules s JOIN recipes_schedules rs ON s.id = rs.schedule_id JOIN recipes r ON s.recipe_id = r.id  JOIN meal_types m ON s.meal_type_id = m.id JOIN preptimes pt ON s.preptime_id = pt.id JOIN recipes_cuisines rc ON r.id = rc.recipe_id  JOIN cuisines c ON rc.cuisine_id = c.id JOIN recipes_diets rd ON r.id = rd.diet_id JOIN diets d ON rd.diets_id = d.id WHERE s.id = %(user_id)s;'
+        query = 'SELECT * , WEEKDAY(date) weekday FROM schedules s JOIN recipes_schedules rs ON s.id = rs.schedule_id JOIN recipes r ON s.recipe_id = r.id  JOIN meal_types m ON s.meal_type_id = m.id JOIN preptimes pt ON s.preptime_id = pt.id JOIN recipes_cuisines rc ON r.id = rc.recipe_id  JOIN cuisines c ON rc.cuisine_id = c.id JOIN recipes_diets rd ON r.id = rd.diet_id JOIN diets d ON rd.diets_id = d.id WHERE s.id = %(user_id)s;'
         results = connectToMySQL(cls.db).query_db(query, data)
 
         schedule_days = []
@@ -55,7 +54,7 @@ class Schedule:
 
     @classmethod
     def get_user_schedule(cls, data):
-        query = 'SELECT * FROM schedules s WHERE s.id = %(user_id)s;'
+        query = 'SELECT * , WEEKDAY(date) weekday FROM schedules s WHERE s.id = %(user_id)s;'
         results = connectToMySQL(cls.db).query_db(query, data)
         user_schedule = []
         for s in results:
