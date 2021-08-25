@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe</title>
+</head>
+<body>
+    <div id="nav">
+        <div class="top_nav">
+            <a href='/dashboard'>Your meals</a>
+            <a href="/dashboard/schedule">Schedule</a>
+            <a href="/dashboard/recipes">Recipes</a>
+            <a href="">Meal Preferences</a>
+            <a href="">Shopping list</a>
+            <a href="">Account settings</a>
+        </div>
+        <div class="bottom_nav">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <p>{{message}}</p>
+            <!--<h2>Welcome, {{user.username}}!</h2>-->
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <a href="/logout">Logout</a>
+            <a href="/dashboard/add_recipe"> Add a recipe </a>
+        </div>
+        <div class="container">
+            <h3> {{recipe.title}} </h3>
+            <p> here</p>
+        </div>
+</body>
+</html>

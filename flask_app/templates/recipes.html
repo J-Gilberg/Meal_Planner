@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipes</title>
     <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 </head>
+
 <body>
     <div id="nav">
         <div class="top_nav">
@@ -21,23 +25,51 @@
             {% with messages = get_flashed_messages() %}
             {% if messages %}
             {% for message in messages %}
-            <p>{{message}}</p><!--<h2>Welcome, {{user.username}}!</h2>-->
+            <p>{{message}}</p>
+            <!--<h2>Welcome, {{user.username}}!</h2>-->
             {% endfor %}
             {% endif %}
             {% endwith %}
             <a href="/logout">Logout</a>
             <a href="/dashboard/add_recipe"> Add a recipe </a>
         </div>
-    <div class="container">
-    <div class="favorites"> 
-        <h3 class="header"> Favorites </h3>
-    </div>
-    <div class="recently_made"> 
-        <h3> Recently made </h3>
-    </div>
-    <div class="suggestions"> 
-        <h3> Suggestions </h3>
-    </div>
-    </div>
+        <div class="container">
+            <div class="favorites">
+                <h3> Favorites </h3>
+            </div>
+
+            <div class="all_recipes">
+                <h3>All recipes</h3>
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead>
+                            {% for cuisine in cuisines %}
+                            <tr>
+                                <td>{{cuisine.name}}</td>
+                            </tr>
+                            {% endfor %}
+                        </thead>
+                        <tbody>
+                            {% for recipe in recipes %}
+                            <tr>
+                                <td class="align-bottom">
+                                   <a href="/dashboard/view_recipe/{{recipe.id}}"> {{recipe.title}}</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="sug_n_recently">
+                <div>
+                    <h3 class="suggestions"> Suggestions </h3>
+
+                </div>
+                <div>
+                    <h3 class="recently"> Recently made </h3>
+                </div>
+            </div>
+        </div>
 </body>
+
 </html>

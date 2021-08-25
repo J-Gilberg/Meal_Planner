@@ -1,0 +1,21 @@
+INSERT INTO cuisines (name) VALUES('Italian');
+INSERT INTO cuisines (name) VALUES('Mexican');
+INSERT INTO cuisines (name) VALUES('Asian');
+INSERT INTO cuisines (name) VALUES('Greek');
+INSERT INTO cuisines (name) VALUES('American');
+INSERT INTO cuisines (name) VALUES('Indian');
+INSERT INTO cuisines (name) VALUES('Middle - Eastern');
+INSERT INTO cuisines (name) VALUES('Spanish');
+
+INSERT INTO diets (name) VALUES('Vegan');
+INSERT INTO diets (name) VALUES('Vegetarian');
+INSERT INTO diets (name) VALUES('Pescatarian');
+INSERT INTO diets (name) VALUES('Dairy - free');
+INSERT INTO diets (name) VALUES('Gluten - free');
+INSERT INTO diets (name) VALUES('Celliac');
+INSERT INTO diets (name) VALUES('None');
+
+INSERT INTO meal_types (name) VALUES('Breakfast');
+INSERT INTO meal_types (name) VALUES('Lunch');
+INSERT INTO meal_types (name) VALUES('Dinner');
+INSERT INTO meal_types (name) VALUES('Brunch');

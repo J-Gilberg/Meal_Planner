@@ -42,12 +42,32 @@
     border: 1px solid lightgreen;
 
 }
-.favorites, .recently_made, .suggestions{
-    width: 30%;
+.favorites{
+    width: 25%;
     height: 100%;
-    background-color: rgba(211, 211, 211, 0.411);
 }
-
+.all_recipes{
+    width: 40%;
+    height: 100%;
+}
+.sug_n_recently{
+    width: 25%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+}
+.suggestions{
+    width: 100%;
+    height: 380px;
+    background-color: yellow;
+}
+.recently{
+    width: 100%;
+    height: 300px;
+    background-color: orange;
+}
 
 
 
