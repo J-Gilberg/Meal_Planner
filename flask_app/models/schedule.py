@@ -22,6 +22,14 @@ class Schedule:
         return arr[weekday_num]
 
     @classmethod
+    def add_schedule():
+        pass
+
+    @classmethod
+    def edit_schedule():
+        pass
+
+    @classmethod
     def get_scheduled_recipes(cls, data):
         query = 'SELECT * FROM schedules s JOIN recipes r ON s.recipe_id = r.id  JOIN meal_types m ON s.meal_type_id = m.id JOIN preptimes pt ON s.preptime_id = pt.id JOIN recipes_cuisines rc ON r.id = rc.recipe_id  JOIN cuisines c ON rc.cuisine_id = c.id JOIN recipes_proteins rp ON r.id = rp.protein_id JOIN proteins p ON rp.protein_id = p.id WHERE s.id = %(user_id)s;'
         results = connectToMySQL(cls.db).query_db(query, data)
@@ -40,7 +48,7 @@ class Schedule:
                 schedule_days.append(new_day)
             
             recipe_data = {
-                'id' = 
+                'id': None
 
             }
 

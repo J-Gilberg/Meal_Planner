@@ -46,26 +46,6 @@ class Recipe:
         #     flash('please provide a description less than or equal to 500 characters')
         #     is_valid = False
         return is_valid
-    # connectToMySQL(cls.db).query_db(query, data)
-
-
-
-
-        # for painting in results:
-        #     new_painting = Painting(painting)
-        #     paintings.append(new_painting)
-
-        #     new_user = {
-        #         'id': painting['u.id']
-        #         ,'first_name': painting['first_name']
-        #         ,'last_name': painting['last_name']
-        #         ,'email': painting['email']
-        #         ,'password': None
-        #         ,'created_at': painting['created_at']
-        #         ,'updated_at': painting['updated_at']
-        #     }
-        #     new_painting.user = login_reg.User(new_user)
-        # return paintings
 
     @classmethod
     def get_painting(cls, data):
