@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
     <div id="nav">
@@ -29,8 +30,8 @@
             <a href="/dashboard/add_recipe"> Add a recipe </a>
         </div>
         <div class="container">
-            <h3> {{recipe.title}} </h3>
-            <p> here</p>
+            <h3> {{recipes.title}} </h3>
+            <p> Description: {{recipes.description}} </p>
         </div>
 </body>
 </html>

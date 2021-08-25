@@ -39,11 +39,22 @@ class Recipe:
     
     @classmethod
     def get_single_recipe(cls,data):
-        query = 'SELECT * FROM recipes WHERE id_recipes = %(id_recipes)s'
+        query = 'SELECT * FROM recipes r JOIN meal_types m ON r.meal_type_id = m.id WHERE r.id = %(id)s;'
         results = connectToMySQL(cls.db).query_db(query, data)
         recipe = Recipe(results[0])
         return recipe
 
+    @classmethod
+    def get_suggestions(cls):
+        query = 'SELECT * FROM recipes r JOIN meal_types m ON r.meal_type_id = m.id ORDER BY RAND() LIMIT 1;'
+        results = connectToMySQL(cls.db).query_db(query)
+        recipes_rand = []
+        for recipe in results:
+            recipes_rand.append(cls(recipe))
+        print(recipes_rand[0].title)
+        return recipes_rand
+
+    
     @staticmethod
     def recipe_validator(data):
         is_valid = True

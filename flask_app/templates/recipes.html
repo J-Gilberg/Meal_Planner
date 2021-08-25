@@ -53,7 +53,7 @@
                             {% for recipe in recipes %}
                             <tr>
                                 <td class="align-bottom">
-                                   <a href="/dashboard/view_recipe/{{recipe.id}}"> {{recipe.title}}</a></td>
+                                   <a href="/dashboard/{{recipe.id}}"> {{recipe.title}}</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -61,12 +61,14 @@
                 </div>
             </div>
             <div class="sug_n_recently">
-                <div>
-                    <h3 class="suggestions"> Suggestions </h3>
-
+                <div class="suggestions">
+                    <h3> Suggestions </h3>
+                    {% for recipe in recipes_rand %}
+                    <p> <a href="/dashboard/{{recipe.id}}" >{{recipe.title}} </a> </p>
+                    {% endfor %}
                 </div>
-                <div>
-                    <h3 class="recently"> Recently made </h3>
+                <div class="recently">
+                    <h3> Recently made </h3>
                 </div>
             </div>
         </div>

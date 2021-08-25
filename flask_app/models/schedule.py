@@ -9,8 +9,9 @@ class Schedule:
         self.user_id = data['user_id']
         self.weekday = self.getweekday(data['weekday'])
         self.date = data['date']
+        self.meal_type_id = data['meal_type_id']
         self.meal_type = data['m.name']
-        self.preptime = data['pt.description']
+        self.prep_time = data['pt.description']
         self.recipes = None
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
@@ -27,12 +28,12 @@ class Schedule:
 
     @classmethod
     def edit_schedule(cls, data):
-        query = "UPDATE schedules (date = %(date)s, user_id = %(user_id)s, prep_time = %(prep_time)s, meal_type_id = %(meal_type_id)s) WHERE id = %(id)s"
+        query = "UPDATE schedules SET date = %(date)s, user_id = %(user_id)s, prep_time = %(prep_time)s, meal_type_id = %(meal_type_id)s WHERE id = %(id)s"
         connectToMySQL(cls.db).query_db(query, data)
 
     @classmethod
     def get_scheduled_recipes(cls, data):
-        query = 'SELECT * FROM schedules s JOIN recipes_schedules rs ON s.id = rs.schedule_id JOIN recipes r ON s.recipe_id = r.id  JOIN meal_types m ON s.meal_type_id = m.id JOIN preptimes pt ON s.preptime_id = pt.id JOIN recipes_cuisines rc ON r.id = rc.recipe_id  JOIN cuisines c ON rc.cuisine_id = c.id JOIN recipes_proteins rp ON r.id = rp.protein_id JOIN proteins p ON rp.protein_id = p.id WHERE s.id = %(user_id)s;'
+        query = 'SELECT * FROM schedules s JOIN recipes_schedules rs ON s.id = rs.schedule_id JOIN recipes r ON s.recipe_id = r.id  JOIN meal_types m ON s.meal_type_id = m.id JOIN preptimes pt ON s.preptime_id = pt.id JOIN recipes_cuisines rc ON r.id = rc.recipe_id  JOIN cuisines c ON rc.cuisine_id = c.id JOIN recipes_diets rd ON r.id = rd.diet_id JOIN diets d ON rd.diets_id = d.id WHERE s.id = %(user_id)s;'
         results = connectToMySQL(cls.db).query_db(query, data)
 
         schedule_days = []
@@ -52,4 +53,11 @@ class Schedule:
                 'id': None
             }
 
-            
+    @classmethod
+    def get_user_schedule(cls, data):
+        query = 'SELECT * FROM schedules s WHERE s.id = %(user_id)s;'
+        results = connectToMySQL(cls.db).query_db(query, data)
+        user_schedule = []
+        for s in results:
+            user_schedule.append(cls(s))
+        return user_schedule
