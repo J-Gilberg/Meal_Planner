@@ -1,0 +1,55 @@
+*{
+    background-color: whitesmoke;
+    margin: 0px;
+    padding: 0px;
+    text-decoration: none;
+    color: black;
+}
+#nav{
+    height: 80px;
+    width: 100%;
+}
+.top_nav{
+    height: 60%;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-bottom: 3px solid green;
+    font-size: larger;
+}
+.bottom_nav{
+    height: 40%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.container{
+    margin: 50px auto;
+    height: 100vh;
+    width: 90%;
+    border: 1px solid lightgreen;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.container_schedule{
+    margin: 50px auto;
+    height: 100vh;
+    width: 90%;
+    border: 1px solid lightgreen;
+
+}
+.favorites, .recently_made, .suggestions{
+    width: 30%;
+    height: 100%;
+    background-color: rgba(211, 211, 211, 0.411);
+}
+
+
+
+
+
+

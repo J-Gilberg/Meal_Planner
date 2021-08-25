@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    
+</head>
+
+<body>
+    <div id="nav">
+        <div class="top_nav">
+            <a href='/dashboard'>Your meals</a>
+            <a href="/dashboard/schedule">Schedule</a>
+            <a href="/dashboard/recipes">Recipes</a>
+            <a href="">Meal Preferences</a>
+            <a href="">Shopping list</a>
+            <a href="">Account settings</a>
+        </div>
+        <div class="bottom_nav">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <p>{{message}}</p><!--<h2>Welcome, {{user.username}}!</h2>-->
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <a href="/logout">Logout</a>
+            <a href="/dashboard/add_recipe"> Add a recipe </a>
+        </div>
+        <div class="container">
+            <div class="dayscontainer">
+                {% for day in days %}
+                <div class="day">
+                    <div class='daytitle'>
+                        <h1>{{day_of_week}}</h1>
+                        <h2>{{date}}</h2>
+                    </div>
+                    {% for recipe in day-recipes %}
+                    <div>
+                        <h1>{{meal_time}}</h1>
+                        <h1>{{recipe.name}}</h1>
+                        <h1>{{recipe.cuisine}}</h1>
+                        <h1>{{recipe.time_to_make}}</h1>
+                        <a href="/regenrecipe"></a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+            
+        </div>
+    </div>
+    
+
+</body>
+
+</html>

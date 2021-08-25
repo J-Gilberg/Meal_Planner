@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+</head>
+
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{message}}</p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div>
+        <h1>Registration</h1>
+        <form action="/register/user" , method="POST">
+            <label for="username">Username:</label>
+            <input type="text" name="username">
+            <label for="reg_email">Email:</label>
+            <input type="email" name="email">
+            <label for="reg_password">Password:</label>
+            <input type="password" name="password">
+            <label for="conf_password">Confirm Password:</label>
+            <input type="password" name="conf_password">
+            <input type="submit" value="Create Account">
+        </form>
+    </div>
+    <div>
+        <h1>Login</h1>
+        <form action="/login" , method="POST">
+            <label for="login_email">Email:</label>
+            <input type="email" name="login_email">
+            <label for="login_password">Password:</label>
+            <input type="password" name="login_password">
+            <input type="submit" value="Login">
+        </form>
+    </div>
+</body>
+
+</html>

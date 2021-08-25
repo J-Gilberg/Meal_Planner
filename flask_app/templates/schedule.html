@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+
+<body>
+    <div id="nav">
+        <div class="top_nav">
+            <a href="/dashboard">Your meals</a>
+            <a href="/dashboard/schedule">Schedule</a>
+            <a href="/dashboard/recipes">Recipes</a>
+            <a href="">Meal Preferences</a>
+            <a href="">Shopping list</a>
+            <a href="">Account settings</a>
+        </div>
+        <div class="bottom_nav">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <p>{{message}}</p>
+            <!--<h2>Welcome, {{user.username}}!</h2>-->
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <a href="/logout">Logout</a>
+            <a href="/dashboard/add_recipe"> Add a recipe </a>
+        </div>
+        <div class="container_schedule">
+            <p> Monday:
+                Breakfast <input type="radio" name="day1"> Breakfast
+                Lunch <input type="radio" name="day1">
+                Dinner <input type="radio" name="day1">
+                Brunch <input type="radio" name="day1">
+                Don't feel like cooking today <input type="radio" name="day1">
+            </p>
+            <p> Tuesday: 
+                Breakfast <input type="radio" name="day2">
+                Lunch <input type="radio" name="day2">
+                Dinner <input type="radio" name="day2">
+                Brunch <input type="radio" name="day2">
+                Don't feel like cooking today <input type="radio" name="day2">
+            </p>
+            <p> Wednsday: 
+                Breakfast <input type="radio" name="day3">
+                Lunch <input type="radio" name="day3">
+                Dinner <input type="radio" name="day3">
+                Brunch <input type="radio" name="day3">
+                Don't feel like cooking today <input type="radio" name="day3">
+            </p>
+            <p> Thursday: 
+                Breakfast <input type="radio" name="day4">
+                Lunch <input type="radio" name="day4">
+                Dinner <input type="radio" name="day4">
+                Brunch <input type="radio" name="day4">
+                Don't feel like cooking today <input type="radio" name="day4">
+            </p>
+            <p> Friday: 
+                Breakfast <input type="radio" name="day5">
+                Lunch <input type="radio" name="day5">
+                Dinner <input type="radio" name="day5">
+                Brunch <input type="radio" name="day5">
+                Don't feel like cooking today <input type="radio" name="day5">
+            </p>
+            <p> Saturday: 
+                Breakfast <input type="radio" name="day6">
+                Lunch <input type="radio" name="day6">
+                Dinner <input type="radio" name="day6">
+                Brunch <input type="radio" name="day6">
+                Don't feel like cooking today <input type="radio" name="day6">
+            </p>
+            <p> Sunday: 
+                Breakfast <input type="radio" name="day7">
+                Lunch <input type="radio" name="day7">
+                Dinner <input type="radio" name="day7">
+                Brunch <input type="radio" name="day7">
+                Don't feel like cooking today <input type="radio" name="day7">
+            </p>
+        </div>
+</body>
+
+</html>
