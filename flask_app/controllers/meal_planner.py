@@ -9,6 +9,8 @@ def dashboard():
     if not 'user_id' in session:
         flash('Please log in to view this page')
         return redirect('/')
+    # if not user_schedule or len(user_schedule) == 0: # if the user schedule is blank we need to have a startup sequence
+    #     return redirect('/dashboard/start_up')
     return render_template('dashboard.html')
 
 @app.route('/dashboard/add_recipe')
@@ -62,31 +64,40 @@ def view_schedule():
         flash('Please log in to view this page')
         return redirect('/')
     today = date.today().weekday()
-    weekstart = date.today() - timedelta(days=today)
-    print(weekstart)
+    # weekstart = date.today() - timedelta(days=today)
+    # print(weekstart)
     user_schedule = schedule.Schedule.get_user_schedule({'user_id': session['user_id']
-    ,'start_date': weekstart})
+    ,'start_date': today})
     if not user_schedule or len(user_schedule) == 0:
         return redirect('/dashboard/add_schedule')
-    
-    return render_template('schedule.html', user_schedule = user_schedule)
+    meal_types = meal_type.Meal_type.get_all_meal_types()
+    return render_template('schedule.html', user_schedule = user_schedule, meal_types = meal_types)
+
+
 
     
 @app.route('/dashboard/add_schedule', methods=['POST'])
-def add_new_schedule():
+def add_new_week():
     if not 'user_id' in session:
         flash('Please log in to view this page')
         return redirect('/')
-    today = date.today().weekday()
-    weekstart = date.today() - timedelta(days=today)
-    day_interval = timedelta(days=1)
-    for day in range(14):
-        data = {
-            'user_id': session['user_id']
-            ,'weekday': (weekstart + day_interval).weekday() 
-            ,'date': weekstart + day_interval 
-        }
-        schedule.Schedule.add_schedule(data)
+    today = date.today()
+    today_weekday = today.weekday()
+    # weekstart = date.today() - timedelta(days=today)
+    print(request.form)
+    if request.form == None:
+        for day in range(7):
+            day_interval = timedelta(days=day)
+            data = {
+                'user_id': session['user_id']
+                ,'date': today + day_interval
+                ,'prep_time': '1 hr'
+                ,'meal_type_id': '3'
+            }
+            # ,'weekday': (weekstart + day_interval).weekday() 
+            schedule.Schedule.add_schedule(data)
+    else:
+        day_interval = timedelta(days=1)
 
     return redirect('/dashboard/schedule')
 

@@ -4,16 +4,16 @@ from datetime import date, datetime, timedelta, time
 from flask import flash
 
 class Schedule:
-    def  __init__(self, data) -> None:
+    def  __init__(self, data):
         self.id = data['id']
         self.user_id = data['user_id']
+        self.weekday_id = data['weekday']
         self.weekday = self.getweekday(data['weekday'])
         self.date = data['date']
-        self.meal_type_id = data['meal_type_id']
-        self.prep_time = data['prep_time']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-        self.recipes = None
+        self.meal_type_id_list = []
+        self.properties = []
 
         
     def getweekday(weekday_num):
@@ -54,9 +54,23 @@ class Schedule:
 
     @classmethod
     def get_user_schedule(cls, data):
-        query = 'SELECT * , WEEKDAY(date) weekday FROM schedules s WHERE s.id = %(user_id)s;'
+        query = 'SELECT * , WEEKDAY(date) weekday FROM schedules s WHERE s.id = %(user_id)s and date >= %(start_date)s;'
         results = connectToMySQL(cls.db).query_db(query, data)
         user_schedule = []
         for s in results:
-            user_schedule.append(cls(s))
+            if len(user_schedule) == 0:
+                new_schedule = cls(s)
+                user_schedule.append(new_schedule)
+            elif new_schedule.date != s['date']:
+                new_schedule = cls(s)
+                user_schedule.append(new_schedule)
+            new_schedule.meal_type_id_list.append(s['meal_type_id'])       
+            new_schedule.properties.append(Property(s))
         return user_schedule
+
+class Property:
+
+    def __init__(self,data):
+        self.meal_type_id = data['meal_type_id']
+        self.prep_time = data['prep_time']
+        self.recipes = None
