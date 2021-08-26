@@ -10,7 +10,7 @@ class Schedule:
         self.weekday = self.getweekday(data['weekday'])
         self.date = data['date']
         self.meal_type_id = data['meal_type_id']
-        self.prep_time = data['pt.description']
+        self.prep_time = data['prep_time']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.recipes = None
