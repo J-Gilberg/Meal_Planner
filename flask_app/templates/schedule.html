@@ -15,7 +15,7 @@
             <a href="/dashboard">Your meals</a>
             <a href="/dashboard/schedule">Schedule</a>
             <a href="/dashboard/recipes">Recipes</a>
-            <a href="">Meal Preferences</a>
+            <a href="/dashboard/meal_preference">Meal Preferences</a>
             <a href="">Shopping list</a>
             <a href="">Account settings</a>
         </div>
@@ -33,18 +33,26 @@
         </div>
     </div>
     <div class="container_schedule">
-        <form action="/dashboard/edit_schedule">
+        <form action="/dashboard/edit_schedule" method="POST">
             {% for day in user_schedule%}
             <p> {{day.weekday}}:
                 {% for m in meal_types %}
-                {% if m.id in day.meal_type_id_list %}
-                {{m.name}}: <input type="checkbox" name="meal_type_id{{m.id}}" value="{{m.id}}" checked>
-                {% else %}
-                {{m.name}}: <input type="checkbox" name="meal_type_id{{m.id}}" value="{{m.id}}">
-                {% endif %}
-                Prep time: <input type="number" name="prep_time">
-                    <input type="radio" name="time_metric" value='min'> min
-                    <input type="radio" name="time_metric" value='hr'> hr
+                    {% if m.id in day.meal_type_id_list %}
+                        {{m.name}}: <input type="checkbox" name="meal_type_id{{m.id}}" value="{{m.id}}" checked>
+                        Prep time: <input type="number" name="prep_time" value='{{day.prep_time_number_list[day.meal_type_id_list.index(m.id)]}}'>
+                        {% if day.prep_time_metric_list[day.meal_type_id_list.index(m.id)] == 'min' %}
+                        <input type="radio" name="time_metric" value='min' checked> min
+                        <input type="radio" name="time_metric" value='hr'> hr
+                        {% else %}
+                        <input type="radio" name="time_metric" value='min'> min
+                        <input type="radio" name="time_metric" value='hr' checked> hr
+                        {% endif %}
+                    {% else %}
+                        {{m.name}}: <input type="checkbox" name="meal_type_id{{m.id}}" value="{{m.id}}">
+                        Prep time: <input type="number" name="prep_time">
+                        <input type="radio" name="time_metric" value='min'> min
+                        <input type="radio" name="time_metric" value='hr' checked> hr
+                    {% endif %}
                 {% endfor %}
             </p>
             {% endfor %}
