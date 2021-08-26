@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+    <div id="nav">
+        <div class="top_nav">
+            <a href="/dashboard">Your meals</a>
+            <a href="/dashboard/schedule">Schedule</a>
+            <a href="/dashboard/recipes">Recipes</a>
+            <a href="/dashboard/meal_preference">Meal Preferences</a>
+            <a href="">Shopping list</a>
+            <a href="">Account settings</a>
+        </div>
+        <div class="bottom_nav">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <p>{{message}}</p>
+            <!--<h2>Welcome, {{user.username}}!</h2>-->
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <a href="/logout">Logout</a>
+            <a href="/dashboard/add_recipe"> Add a recipe </a>
+        </div>
+    <div class="container_preferences">
+        <div class="cuisine_preference">
+            <p> Cuisine: <select name='cuisine_id' id="select1">
+                {% for c in cuisines%}
+                <option value={{c.id}}> {{c.name}}</option>
+                {% endfor %}
+            </select>
+            <button>Select</button>
+            </p>
+            <p> Times per week: <input type="number">min
+                                <input type="number">max
+            </p>
+        </div>
+        <div class="dietary_preference">
+            <p> Dietary preference: <select name='diet_id'>
+                {% for d in diets%}
+                    <option value={{d.id}}> {{d.name}} </option>
+                {% endfor %}
+                </select>
+
+            </p>
+        </div>
+        <div class="cuisine_preference">
+            <p> Cuisine: <select name='cuisine_id'>
+                {% for c in cuisines%}
+                <option value={{c.id}}> {{c.name}}</option>
+                {% endfor %}
+            </select>
+            </p>
+            <p> Times per week: <input type="number">min
+                                <input type="number">max
+            </p>
+        </div>
+        <div class="dietary_preference">
+            <p> Dietary preference: <select name='diet_id'>
+                {% for d in diets%}
+                    <option value={{d.id}}> {{d.name}} </option>
+                {% endfor %}
+                </select>
+
+            </p>
+        </div>
+
+    </div>
+    <script src="/flask_app/script/script.js"></script>
+</body>
+</html>

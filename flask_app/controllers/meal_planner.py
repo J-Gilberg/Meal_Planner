@@ -63,20 +63,22 @@ def view_schedule():
     if not 'user_id' in session:
         flash('Please log in to view this page')
         return redirect('/')
-    today = date.today().weekday()
+    today = date.today()
     # weekstart = date.today() - timedelta(days=today)
     # print(weekstart)
     user_schedule = schedule.Schedule.get_user_schedule({'user_id': session['user_id']
     ,'start_date': today})
+    print(user_schedule)
     if not user_schedule or len(user_schedule) == 0:
         return redirect('/dashboard/add_schedule')
     meal_types = meal_type.Meal_type.get_all_meal_types()
+    print(user_schedule)
     return render_template('schedule.html', user_schedule = user_schedule, meal_types = meal_types)
 
 
 
     
-@app.route('/dashboard/add_schedule', methods=['POST'])
+@app.route('/dashboard/add_schedule')
 def add_new_week():
     if not 'user_id' in session:
         flash('Please log in to view this page')
@@ -85,7 +87,7 @@ def add_new_week():
     today_weekday = today.weekday()
     # weekstart = date.today() - timedelta(days=today)
     print(request.form)
-    if request.form == None:
+    if len(request.form) == 0:
         for day in range(7):
             day_interval = timedelta(days=day)
             data = {
@@ -105,3 +107,13 @@ def add_new_week():
 def edit_schedule():
     schedule.Schedule.edit_schedule()
     return redirect('/dashboard/schedule')
+
+@app.route('/dashboard/meal_preference')
+def meal_preference():
+    if not 'user_id' in session:
+        flash('Please log in to view this page')
+        return redirect('/')
+    cuisines = cuisine.Cuisine.get_all_cuisine()
+    diets = diet.Diet.get_all_diets()
+    return render_template('meal_preferences.html', cuisines = cuisines, diets = diets)
+    
