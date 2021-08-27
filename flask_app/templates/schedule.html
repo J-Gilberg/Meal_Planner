@@ -38,20 +38,20 @@
             <p> {{day.weekday}}:
                 {% for m in meal_types %}
                     {% if m.id in day.meal_type_id_list %}
-                        {{m.name}}: <input type="checkbox" name="meal_type_id{{m.id}}" value="{{m.id}}" checked>
+                        {{m.name}}: <input type="checkbox" name="{{m.id}}meal_type_id" value="{{m.id}}" checked>
                         Prep time: <input type="number" name="prep_time" value='{{day.prep_time_number_list[day.meal_type_id_list.index(m.id)]}}'>
                         {% if day.prep_time_metric_list[day.meal_type_id_list.index(m.id)] == 'min' %}
-                        <input type="radio" name="{{f'time_metric{m.id}{str(day.date)}'}}" value='min' checked> min
-                        <input type="radio" name="{%f'time_metric{m.id}{str(day.date)}'%}" value='hr'> hr
+                        <input type="radio" name="{{m.id}}{{day.date}}" value='min' checked> min
+                        <input type="radio" name="{{m.id}}{{day.date}}" value='hr'> hr
                         {% else %}
-                        <input type="radio" name="{%f'time_metric{m.id}{str(day.date)}'%}" value='min'> min
-                        <input type="radio" name="{%f'time_metric{m.id}{str(day.date)}'%}" value='hr' checked> hr
+                        <input type="radio" name="{{m.id}}{{day.date}}" value='min'> min
+                        <input type="radio" name="{{m.id}}{{day.date}}" value='hr' checked> hr
                         {% endif %}
                     {% else %}
-                        {{m.name}}: <input type="checkbox" name="meal_type_id{{m.id}}" value="{{m.id}}">
+                        {{m.name}}: <input type="checkbox" name="{{m.id}}meal_type_id" value="{{m.id}}">
                         Prep time: <input type="number" name="prep_time">
-                        <input type="radio" name="{%f'time_metric{m.id}{str(day.date)}'%}" value='min'> min
-                        <input type="radio" name="{%f'time_metric{m.id}{str(day.date)}'%}" value='hr' checked> hr
+                        <input type="radio" name="{{m.id}}{{day.date}}" value='min'> min
+                        <input type="radio" name="{{m.id}}{{day.date}}" value='hr' checked> hr
                     {% endif %}
                 {% endfor %}
             </p>
@@ -62,6 +62,7 @@
 </body>
 
 </html>
+
 
 
 <!-- <p> Tuesday:

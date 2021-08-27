@@ -72,6 +72,7 @@ class Schedule:
             new_schedule.meal_type_id_list.append(sch['meal_type_id'])
             new_schedule.prep_time_number_list.append( sch['prep_time'][sch['prep_time'].find(' ')-1])
             new_schedule.prep_time_metric_list.append( sch['prep_time'][-sch['prep_time'].find(' ')+1])
+
             new_schedule.properties.append(Property(sch))
         return user_schedule
 

@@ -105,7 +105,8 @@ def add_new_week():
 
 @app.route('/dashboard/edit_schedule', methods=['POST'])
 def edit_schedule():
-    schedule.Schedule.edit_schedule()
+    print(request.values)
+    schedule.Schedule.edit_schedule(request.form)
     return redirect('/dashboard/schedule')
 
 @app.route('/dashboard/meal_preference')
